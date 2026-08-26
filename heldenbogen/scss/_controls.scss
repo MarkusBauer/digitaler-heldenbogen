@@ -1,0 +1,74 @@
+@use "page";
+
+
+.buttons {
+  margin-top: 0;
+  margin-bottom: -.5rem;
+
+  text-align: right;
+
+  @include page.page-width;
+
+  & {
+    padding-top: .5rem;
+    padding-bottom: 0;
+  }
+
+  @media print {
+    display: none;
+  }
+
+  button {
+    cursor: pointer;
+
+    color: var(--color-border-thin);
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    background-color: var(--color-bg);
+    min-width: 1.75rem;
+    min-height: 1.5rem;
+    font-size: 1.1rem;
+    padding: .125rem;
+
+    &:focus, &:hover {
+      color: var(--color-text);
+      border-color: var(--color-border-thin);
+    }
+  }
+
+  button.btn-light {
+    display: light-dark(none, inherit);
+    color: light-dark(var(--color-text), var(--color-border-thin));
+  }
+
+  button.btn-dark {
+    display: light-dark(inherit, none);
+    color: light-dark(var(--color-border-thin), var(--color-text));
+  }
+
+  &.wide .btn-wide {
+    color: var(--color-text);
+  }
+}
+
+@media screen {
+  html.dark {
+    button.btn-light {
+      color: var(--color-border-thin);
+    }
+
+    button.btn-dark {
+      color: var(--color-text);
+    }
+  }
+
+  html.light {
+    button.btn-light {
+      color: var(--color-text);
+    }
+
+    button.btn-dark {
+      color: var(--color-border-thin);
+    }
+  }
+}

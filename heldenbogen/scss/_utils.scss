@@ -1,0 +1,133 @@
+@use "vars";
+
+// Tooltips
+
+@mixin tooltip-format {
+  z-index: 1000;
+  padding: .25rem .5rem;
+  border-radius: .25rem;
+  border: 1px solid var(--color-border-tooltip);
+  background-color: var(--color-outer);
+  color: var(--color-text);
+  font-size: .9rem;
+  text-align: center;
+  white-space: pre-wrap;
+}
+
+// Format things with tooltips
+@media screen {
+  .has-tooltip, [data-title]:not([data-title=""]) {
+    text-decoration: underline dashed;
+    text-decoration-color: var(--color-border-thin);
+
+    span {
+      text-decoration: underline dashed;
+      text-decoration-color: var(--color-border-thin);
+    }
+  }
+}
+
+// CSS-only tooltips
+@media screen {
+  [data-title]:not([data-title=""]) {
+    position: relative;
+
+    &:after {
+      content: attr(data-title);
+      position: fixed;
+      opacity: 0;
+      transition: all 0.3s ease;
+
+      @include tooltip-format;
+    }
+
+    &:hover:after {
+      opacity: 1;
+      display: block;
+    }
+  }
+}
+
+// interacts with the "position: fixed" above (renders it somehow invalid)
+body {
+  transform: translate(0, 0);
+
+  &.tooltips-initialized {
+    transform: none;
+  }
+}
+
+// JS tooltips
+.tooltip {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  @include tooltip-format;
+
+  &.active {
+    opacity: 1;
+  }
+}
+
+
+// Modals
+.modal {
+  position: fixed;
+  z-index: 1200;
+  top: 5vh;
+  bottom: 5vh;
+  left: 2vw;
+  right: 2vw;
+  padding: 1rem;
+  background-color: rgba(0, 0, 0, 0.9);
+  border: 2px solid var(--color-border-thin);
+  border-radius: .5rem;
+
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.3s ease;
+
+  @media screen and (max-width: vars.$phoneBreakpoint) {
+    left: 0;
+    right: 0;
+    top: 2vh;
+    bottom: 2vh;
+  }
+
+  &.modal-open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .modal-close-icon {
+    position: absolute;
+    display: block;
+    width: 3rem;
+    height: 3rem;
+    top: 0;
+    right: 0;
+    text-align: center;
+    font-size: 3rem;
+    line-height: 2.5rem;
+
+    color: #ddd;
+    border-radius: .25rem;
+    border: 1px solid transparent;
+
+    &:hover, &:focus {
+      color: #fff;
+      border: 1px solid var(--color-border-thin);
+    }
+  }
+}
+
+[data-toggle="modal-open"], [data-toggle="modal-close"] {
+  cursor: pointer;
+  user-select: none;
+}
+
+@media print {
+  .tooltip, .modal {
+    display: none;
+  }
+}

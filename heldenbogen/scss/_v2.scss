@@ -1,0 +1,37 @@
+// less lines, less borders
+
+.block {
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  border-radius: 0;
+
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+
+  border-width: 1px;
+}
+
+.page > .block:first-child {
+  border-top: none;
+}
+
+.col:nth-child(n+1) .block {
+  border-left: 1px solid var(--color-border);
+  margin-bottom: 0;
+  padding-left: .25rem;
+  padding-bottom: .25rem;
+}
+
+.header-block.with-portrait {
+  column-gap: .25rem;
+
+  .portrait-container {
+    border-right: none;
+  }
+}
+
+.nahkampfwaffe, .fernkampfwaffe, .waffenlos, .schild, .ruestung {
+  border-width: 1px !important;
+}

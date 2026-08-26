@@ -1,0 +1,126 @@
+@use "../vars";
+
+.block.block-zauber, .block.block-rituale {
+  columns: 2;
+  column-gap: 1rem;
+
+  @media screen and (max-width: vars.$pageBreakpoint * 0.75) {
+    columns: 1;
+  }
+
+  .zauber-liste, .ritual-liste {
+    display: grid;
+    grid-template-columns: 1fr max-content min-content;
+    align-items: baseline;
+
+    .zauber-name {
+      grid-column: 1;
+      font-weight: bold;
+      break-inside: avoid;
+      break-after: avoid;
+
+      // fuck a bit more with non-working break features
+      &:after {
+        content: "";
+        display: block;
+        height: 1.5rem;
+        margin-bottom: -1.5rem;
+      }
+
+      // Zauber/Rituale without Probe => more space
+      &:not(:has(+.zauber-probe)) {
+        grid-column: 1 / span 2;
+      }
+
+      // Zauberprobe in new line => more space
+      &:has(+.zauber-probe.in-new-line) {
+        grid-column: 1 / span 2;
+      }
+
+      &.hauszauber:after {
+        content: "⌂";
+        // position: absolute;
+        // padding-left: .25rem;
+        display: inline;
+        color: var(--color-border-thin);
+        font-size: .8rem;
+      }
+
+      .repr {
+        font-size: .8rem;
+        font-weight: normal;
+
+        &:before {
+          content: "[";
+        }
+
+        &:after {
+          content: "]";
+        }
+      }
+    }
+
+    .zauber-probe {
+      grid-column: 2;
+      font-size: .8rem;
+      break-inside: avoid;
+
+      &.in-new-line {
+        grid-column: 1/span 2;
+      }
+    }
+
+    .zauber-wert {
+      grid-column: 3;
+      padding-left: .25rem;
+      font-weight: bold;
+      break-inside: avoid;
+    }
+
+    .zauber-infos {
+      grid-column: 1 / span 3;
+      break-before: avoid;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      page-break-before: avoid;
+      display: flex;
+      flex-wrap: wrap;
+      column-gap: .5rem;
+      font-size: .8rem;
+
+      border-bottom: 1px solid var(--color-border-thin);
+      margin-bottom: .125rem;
+      padding-bottom: .25rem;
+
+      &:last-child {
+        // border-bottom: none;
+        margin-bottom: 0;
+      }
+
+      .zauber-info-header {
+        font-weight: bold;
+
+        &:after {
+          content: ": ";
+        }
+
+        &:empty {
+          display: none;
+        }
+      }
+    }
+
+    .zauber-empty {
+      &.zauber-name {
+        height: 1.1rem;
+        margin-left: .25rem;
+        border-bottom: 1px dashed var(--color-border-thin);
+        grid-column-end: span 1;
+      }
+
+      &.zauber-infos {
+        height: 1.6rem;
+      }
+    }
+  }
+}

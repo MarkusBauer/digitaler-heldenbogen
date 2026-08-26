@@ -1,0 +1,79 @@
+@use "vars";
+@use "blocks/basic";
+@use "blocks/kampf";
+@use "blocks/profile";
+@use "blocks/talentlist";
+@use "blocks/wesen";
+@use "blocks/zauber";
+
+.block {
+  position: relative;
+  border: 2px solid var(--color-border);
+  padding: vars.$blockPaddingTB vars.$blockPaddingLR;
+  margin-bottom: .5rem;
+  border-radius: 0.25rem;
+
+  overflow: hidden;
+
+  h1 {
+    margin-top: 0;
+    margin-bottom: 0.25rem;
+  }
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  column-gap: .5rem;
+
+  @media screen and (max-width: vars.$pageBreakpoint) {
+    grid-template-columns: 1fr;
+  }
+
+  .col {
+    position: relative;
+  }
+}
+
+.top-eigenschaften-block, .kampf-eigenschaften-block {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  column-gap: .8rem;
+
+  .eigenschaft {
+    .eigenschaft-name {
+      font-weight: bold;
+    }
+  }
+}
+
+.top-eigenschaften-block {
+  font-size: 1.12rem;
+  padding: (vars.$blockPaddingTB - 0.06rem) vars.$blockPaddingLR;
+}
+
+@media screen and (max-width: vars.$pageBreakpoint) {
+  .sticky-bar {
+    container-type: scroll-state;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+
+    .block {
+      background: var(--color-bg);
+      box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.14) 0px 2px 2px 0px, rgba(0, 0, 0, 0.12) 0px 1px 5px 0px;
+    }
+
+    @container scroll-state(stuck: top) {
+      .block {
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 5px -3px, rgba(0, 0, 0, 0.14) 0px 8px 10px 1px, rgba(0, 0, 0, 0.12) 0px 3px 14px 2px;
+      }
+    }
+  }
+}

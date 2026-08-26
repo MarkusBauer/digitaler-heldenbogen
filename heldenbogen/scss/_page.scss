@@ -1,0 +1,121 @@
+@use "vars";
+
+/*
+ * A "page" is an A4 paper in print.
+ * It is padded if the screen is wide enough to show it.
+ * It should collapse to a full-width view on small screens.
+ */
+
+@mixin page-width {
+  width: vars.$pageWidth - 2 * vars.$pagePadding;
+  padding: vars.$pagePadding;
+  margin-left: auto;
+  margin-right: auto;
+
+  @media screen and (max-width: vars.$pageBreakpoint) {
+    width: auto;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 1rem;
+  }
+
+  @media screen and (max-width: vars.$phoneBreakpoint) {
+    padding: 1rem 0.125rem;
+  }
+
+  // fullscreen mode for laptop players
+  @media screen and (min-width: vars.$pageBreakpoint) {
+    &.wide {
+      width: auto;
+      height: auto;
+      margin: 0;
+      padding: .5rem 1rem;
+      border-radius: 0;
+      border-left: 0;
+      border-right: 0;
+
+      footer {
+        bottom: .1rem;
+      }
+    }
+  }
+}
+
+.page {
+  position: relative;
+  height: vars.$pageHeight - 2 * vars.$pagePadding;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+
+  border: 1px var(--color-border-page) solid;
+  border-radius: 5px;
+  background: var(--color-bg);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+
+  @include page-width;
+
+  .hidden-on-page {
+    display: none;
+  }
+
+  footer {
+    position: absolute;
+    bottom: vars.$pagePadding * 0.5;
+    left: vars.$pagePadding;
+    right: vars.$pagePadding;
+    text-align: center;
+    font-size: .5rem;
+  }
+
+  // collapse on small screens
+  @media screen and (max-width: vars.$pageBreakpoint) {
+    height: auto;
+
+    .hidden-on-page {
+      display: inherit;
+    }
+
+    footer {
+      position: inherit;
+      bottom: unset;
+      left: unset;
+      right: unset;
+      margin-top: 0.5rem;
+    }
+  }
+
+  // no borders on phone screens
+  @media screen and (max-width: vars.$phoneBreakpoint) {
+    border-left: 0;
+    border-right: 0;
+    border-radius: 0;
+  }
+}
+
+// print: remove all borders/styling, and ensure light mode
+@page {
+  size: A4;
+  margin: 0;
+}
+
+@media print {
+  html, body {
+    width: vars.$pageWidth;
+    height: vars.$pageHeight;
+  }
+
+  .page {
+    margin: 0;
+    border: initial;
+    border-radius: initial;
+    width: initial;
+    min-height: initial;
+    box-shadow: initial;
+    background: initial;
+    page-break-after: always;
+
+    .hidden-on-page {
+      display: none;
+    }
+  }
+}

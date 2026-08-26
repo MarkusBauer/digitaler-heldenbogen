@@ -1,0 +1,42 @@
+@use "vars";
+
+.page.page-kompaktbogen {
+  // page compresses itself and should not overflow
+  display: flex;
+  flex-direction: column;
+
+  // wide layout changes
+  @media screen and (min-width: vars.$pageBreakpoint) {
+    &.wide {
+      display: grid;
+      column-gap: .5rem;
+
+      .block, .row {
+        grid-column: 1;
+      }
+
+      .row {
+        @media (max-width: vars.$pageBreakpoint * 1.5) {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .block.talent-block {
+        grid-row: 1 / span 5;
+        grid-column: 2;
+        font-size: 1.15rem;
+        line-height: 1.15rem;
+
+        columns: 2;
+
+        @media (min-width: vars.$pageBreakpoint * 1.75) {
+          columns: 3;
+        }
+      }
+
+      .notizen-block {
+        display: none;
+      }
+    }
+  }
+}

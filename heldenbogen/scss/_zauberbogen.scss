@@ -1,0 +1,47 @@
+@use 'vars';
+
+.page.page-zauberbogen {
+  .talent-block {
+    columns: 2;
+    font-size: 1.1rem;
+    line-height: 1.1rem;
+
+    @media screen and (max-width: vars.$pageBreakpoint * 0.75) {
+      columns: 1;
+    }
+  }
+
+  // left-right layout with header
+  .grid-2 .talent-block {
+    columns: 1;
+  }
+
+
+  // Wide layout changes
+  @media screen and (min-width: vars.$pageBreakpoint * 1.5) {
+    &.wide .cloned {
+      display: none;
+    }
+  }
+  @media screen and (min-width: vars.$pageBreakpoint * 1.5) {
+    &.wide {
+      .block-zauber, .block-rituale, .talent-block {
+        columns: 3;
+      }
+    }
+  }
+  @media screen and (min-width: vars.$pageBreakpoint * 2) {
+    &.wide {
+      .block-zauber, .block-rituale, .talent-block {
+        columns: 4;
+      }
+    }
+  }
+  @media screen {
+    &.wide {
+      .zauber-empty {
+        display: none;
+      }
+    }
+  }
+}

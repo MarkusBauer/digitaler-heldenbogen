@@ -1,0 +1,196 @@
+@use "../vars";
+
+$talentHeaderSize: 70%;
+$colPadding: .2em;
+
+.block.talent-block {
+  columns: 3;
+  column-gap: 1rem;
+  font-size: 1rem;
+  line-height: 1rem;
+  overflow: inherit; // ensure layout does not rotate away overflowing content into hidden column
+
+  &.smaller1 {
+    font-size: 0.9rem;
+    line-height: 0.9rem;
+  }
+
+  &.smaller2 {
+    columns: 4;
+    font-size: 0.85rem;
+    line-height: 0.85rem;
+  }
+
+  &.smaller1, &.smaller2 {
+    @media screen and (max-width: vars.$pageBreakpoint) {
+      columns: 3;
+      font-size: 1rem;
+      line-height: 1rem;
+    }
+  }
+
+  @media screen and (max-width: vars.$pageBreakpoint) {
+    columns: 2;
+  }
+
+  @media screen and (max-width: vars.$pageBreakpoint * 0.5) {
+    columns: 1;
+  }
+
+  h3 {
+    break-after: avoid;
+    grid-column: 1 / span 3;
+    font-size: 90%;
+    margin: 0;
+  }
+
+  // Probe in header, not in talent row
+  .talent-gruppe-sprachen, .talent-gruppe-schriften {
+    h3 {
+      grid-column-end: span 1;
+    }
+
+    .talent-name {
+      grid-column-end: span 2;
+    }
+  }
+
+  .talent-gruppe {
+    display: grid;
+    grid-template-columns: [name] 1fr [probe] max-content [be] max-content [at] max-content [pa] max-content [k] max-content [wert] 1.3em;
+    align-items: end;
+
+    padding-top: .5em;
+
+    &:first-child {
+      padding-top: 0;
+    }
+
+    > * {
+      border-bottom: 1px solid var(--color-border-thin);
+
+      &.talent-hat-ts:not(.talent-ts) {
+        border-bottom: none;
+      }
+    }
+
+    &.talent-gruppe-kampf {
+      .talent-at, .talent-pa, .talent-be {
+        align-self: stretch;
+      }
+
+      .talent-pa, .talent-be {
+        border-right: 1px solid var(--color-border-thin);
+      }
+    }
+
+    &.talent-gruppe-empty {
+      padding-top: 0;
+    }
+  }
+
+  .talent-name {
+    font-size: 80%;
+    grid-column: name;
+
+    .meisterhandwerk, .mirakelplusminus {
+      line-height: .7rem;
+    }
+
+    .meisterhandwerk:after {
+      font-size: 60%;
+      content: " (m)";
+    }
+
+    .mirakelplusminus:before {
+      font-size: 60%;
+      content: " (M";
+    }
+    .mirakelplusminus:after {
+      font-size: 60%;
+      content: ")";
+    }
+  }
+
+  .talent-probe {
+    font-size: 60%;
+    grid-column: probe;
+    padding-right: $colPadding;
+
+    &:before {
+      content: "("
+    }
+
+    &:after {
+      content: ")"
+    }
+  }
+
+  .talent-be {
+    font-size: 60%;
+    grid-column: be;
+    padding-right: $colPadding;
+  }
+
+  .talent-at, .talent-pa {
+    font-size: 100%;
+    padding: 0 $colPadding;
+    text-align: center;
+  }
+
+  strong.talent-at, strong.talent-pa {
+    font-size: $talentHeaderSize;
+    align-self: end !important;
+    border-right: none !important;
+  }
+
+  .talent-at {
+    grid-column: at;
+  }
+
+  .talent-pa {
+    grid-column: pa;
+  }
+
+  .talent-k {
+    font-size: 80%;
+    grid-column: k;
+    padding-right: $colPadding;
+  }
+
+  strong.talent-k {
+    font-size: $talentHeaderSize;
+  }
+
+  .talent-wert {
+    font-size: 100%;
+    grid-column: wert;
+    text-align: right;
+    justify-self: end;
+    min-width: 100%;
+  }
+
+  strong.talent-wert {
+    font-size: $talentHeaderSize;
+    min-width: auto;
+  }
+
+  .talent-ts {
+    font-size: 60%;
+    grid-column: name / span 7;
+
+    &:before {
+      content: "(TS "
+    }
+
+    &:after {
+      content: ")"
+    }
+  }
+
+  .talent-empty {
+    grid-column-end: span 7;
+    font-size: 80%;
+    height: 1em;
+  }
+}

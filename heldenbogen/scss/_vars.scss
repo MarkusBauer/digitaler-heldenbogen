@@ -1,0 +1,10 @@
+$pageWidth: 210mm;
+$pageHeight: 297mm;
+$pagePadding: 12mm;
+
+$pageBreakpoint: $pageWidth + $pagePadding;
+$phoneBreakpoint: ($pageWidth + $pagePadding) * 0.5;
+
+$blockPaddingTB: .25rem;
+$blockPaddingLR: .5rem;
+$imageWidth: 5.75rem;

@@ -1,0 +1,146 @@
+@use "sass:math";
+@use "../vars" as vars;
+
+
+.header-block {
+  display: grid;
+  align-content: stretch;
+
+  &.with-portrait {
+    grid-template-columns: vars.$imageWidth 1fr;
+    column-gap: 1rem;
+  }
+
+  &.without-portrait {
+    grid-template-columns: 0 1fr;
+    column-gap: 0;
+  }
+
+  .portrait-container {
+    grid-row: span 3;
+    min-height: math.round(math.div(vars.$imageWidth*195.0, 127.0));
+    border-right: 2px solid var(--color-border);
+    padding: 0;
+    margin: (-(vars.$blockPaddingTB)) 0 (-(vars.$blockPaddingTB)) (-(vars.$blockPaddingLR));
+
+    display: grid;
+    justify-items: stretch;
+    align-items: stretch;
+    overflow: hidden;
+
+    .portrait {
+      grid-row: 1;
+      grid-column: 1;
+      z-index: 10;
+
+      &.portrait-img-bg {
+        z-index: 0;
+      }
+    }
+
+    &.stretched .portrait {
+      background-size: cover;
+
+      &.portrait-img-bg {
+        display: none;
+      }
+    }
+  }
+
+  .header-container {
+    grid-column: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.5rem;
+
+    @media screen and (max-width: vars.$pageBreakpoint * 0.75) {
+      flex-wrap: wrap;
+    }
+
+    h1 {
+      flex-grow: 2;
+      flex-shrink: 0;
+    }
+
+    .profession {
+      flex-grow: 1;
+      flex-shrink: 3;
+      text-align: right;
+      text-wrap: balance;
+    }
+
+    &.long-profession {
+      h1, .profession {
+        flex-grow: 1;
+        flex-shrink: inherit;
+        text-wrap: balance;
+      }
+    }
+  }
+
+  .angaben-container {
+    grid-column: 2;
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-end;
+    align-content: flex-start;
+    column-gap: 1rem;
+    row-gap: 0.5rem;
+
+    // remainder should align hopefully somewhat grid-like
+    .angabe {
+      display: flex;
+      flex-direction: column;
+      text-align: center;
+
+      .angabe-name {
+        border-top: 1px solid var(--color-border-thin);
+        margin-top: .1rem;
+        padding: 0 .25rem;
+        order: 1;
+        font-size: 0.7rem;
+      }
+    }
+  }
+
+  .hintergrund-container {
+    grid-column: 2;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 0.25rem;
+    column-gap: .5rem;
+    align-items: baseline;
+
+    .angabe-long {
+      font-size: .8rem;
+
+      .angabe-name:after {
+        content: ": ";
+      }
+
+      &:first-child {
+        margin-top: .5rem;
+      }
+    }
+  }
+
+  // Phone screens - rearrange
+  @media screen and (max-width: vars.$phoneBreakpoint) {
+    .portrait-container {
+      grid-row: span 1;
+      margin-bottom: 0.25rem;
+      border-right: 0;
+    }
+
+    .angaben-container, .hintergrund-container {
+      grid-column: 1 / span 2;
+    }
+
+    &.with-portrait .header-container {
+      display: block;
+    }
+  }
+}

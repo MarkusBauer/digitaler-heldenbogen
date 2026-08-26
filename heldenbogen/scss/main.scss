@@ -1,0 +1,132 @@
+@use "normalize.css/normalize.css";
+
+@use "page";
+@use "layout";
+@use "blocks";
+@use "controls";
+@use "kompaktbogen";
+@use "zauberbogen";
+@use "icons";
+@use "utils";
+@use "vars";
+
+@use "fonts_offline";
+
+// @use "v2";
+
+
+:root {
+  color-scheme: light dark;
+
+  --color-light-outer: #dddde2;
+  --color-light-bg: #fff;
+  --color-light-text: #000;
+  --color-light-border: #000;
+  --color-light-border-thin: #aaa;
+  --color-light-border-tooltip: #555;
+  --color-light-border-page: #555;
+
+  --color-dark-outer: #000;
+  //--color-dark-bg: #212529;
+  --color-dark-bg: #15191c;
+  --color-dark-text: #dee2e6;
+  --color-dark-border: #dee2e6;
+  --color-dark-border-thin: #697077;
+  --color-dark-border-tooltip: #555;
+  --color-dark-border-page: #555;
+}
+
+@media print {
+  :root {
+    color-scheme: light;
+  }
+}
+
+html {
+  background-color: var(--color-outer);
+  color: var(--color-text);
+  font-family: 'Gentium Plus', serif;
+  // font-family: "Elegant Garamond", "Garamond", serif;
+  // font-family: 'Arima Madurai', serif;
+  // font-family: 'Faustina', serif;
+
+  --color-outer: var(--color-light-outer);
+  --color-bg: var(--color-light-bg);
+  --color-text: var(--color-light-text);
+  --color-border: var(--color-light-border);
+  --color-border-thin: var(--color-light-border-thin);
+  --color-border-tooltip: var(--color-light-border-thin);
+  --color-border-page: var(--color-light-border-page);
+
+  @media screen {
+    background-image: url(data:image/jpg;base64,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);
+    background-repeat: repeat;
+
+    &.dark {
+      --color-outer: var(--color-dark-outer);
+      --color-bg: var(--color-dark-bg);
+      --color-text: var(--color-dark-text);
+      --color-border: var(--color-dark-border);
+      --color-border-thin: var(--color-dark-border-thin);
+      --color-border-tooltip: var(--color-dark-border-thin);
+      --color-border-page: var(--color-dark-border-page);
+      background-image: none;
+    }
+
+    &.light {
+      --color-outer: var(--color-light-outer);
+      --color-bg: var(--color-light-bg);
+      --color-text: var(--color-light-text);
+      --color-border: var(--color-light-border);
+      --color-border-thin: var(--color-light-border-thin);
+      --color-border-tooltip: var(--color-light-border-thin);
+      --color-border-page: var(--color-light-border-page);
+    }
+  }
+
+  @media screen and (prefers-color-scheme: dark) {
+    --color-outer: var(--color-dark-outer);
+    --color-bg: var(--color-dark-bg);
+    --color-text: var(--color-dark-text);
+    --color-border: var(--color-dark-border);
+    --color-border-thin: var(--color-dark-border-thin);
+    --color-border-tooltip: var(--color-dark-border-thin);
+    --color-border-page: var(--color-dark-border-page);
+    background-image: none;
+  }
+}
+
+.unit {
+  margin-left: .2rem;
+}
+
+.hidden {
+  display: none;
+}
+
+@media screen and (max-width: vars.$pageBreakpoint) {
+  .hidden-on-small-screen {
+    display: none;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+
+.portrait-img {
+  // image set in HTML as background-image: url(data...);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  print-color-adjust: exact;
+  -webkit-print-color-adjust: exact;
+
+  &.portrait-img-bg {
+    background-size: cover;
+    filter: blur(12px);
+    margin: -2px;
+  }
+}

@@ -60,6 +60,6 @@ Unabhängig davon sind Forks gerne gesehen - teilt mir gerne mit wenn ihr was Ne
 Kontakt
 -------
 
-- "Rothen" bei [dsaforum.de](http://dsaforum.de/memberlist.php?mode=viewprofile&u=12050) | [Thread](https://dsaforum.de/TODO)
+- "Rothen" bei [dsaforum.de](http://dsaforum.de/memberlist.php?mode=viewprofile&u=12050) | [Thread](https://dsaforum.de/viewtopic.php?t=63889)
 - Per Mail: markus-7y5wrhdz (AT) mk-bauer.de
 - Github: [MarkusBauer/digitaler-heldenbogen](https://github.com/MarkusBauer/digitaler-heldenbogen)
